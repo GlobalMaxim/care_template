@@ -1,9 +1,14 @@
 <?php
-	require "./less/func.php";
-	require "./less/lessc.inc.php";
 
-	# Функция для компиляции CSS из Less
-    autoCompileLess('./less/style.less', './css/style.css');
+error_reporting( 0 );
+ini_set( 'display_errors', 0 );
+
+require "./less/func.php";
+require "./less/lessc.inc.php";
+
+# Функция для компиляции CSS из Less
+autoCompileLess( './less/style.less', './css/style.css' );
+
 ?>
 <!DOCTYPE html>
 
@@ -19,6 +24,7 @@
 
     <meta name="robots" content="noindex" />
     <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/twentytwenty/twentytwenty.css">
     <link rel="stylesheet" href="css/style.css?t=<?php echo date('U'); ?>">
 
 </head>
@@ -48,7 +54,8 @@
         </div>
 
         <div class="mobile-menu">
-            <div class="close-menu">&times;</div>
+            <div class="close-menu">&times;
+            </div>
             <div class="logo">
                 <a href="#"><img class="mw-100" src="images/logo.jpg" alt="logo"></a>
             </div>

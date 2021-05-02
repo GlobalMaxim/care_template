@@ -93,7 +93,7 @@
                         <p><a href="">Политика конфиденциальности & Cookies</a> <span class="divider">|</span> <a href="">Пользовательское соглашение</a> <span class="divider">|</span> <a href="">Доставка и возврат</a> <span class="divider">|</span> <a class="mb-3 mb-sm-0" href="">Оплата</a> <span class="divider">|</span> © Careclinic 2021</p>
                     </div>
                     <div class="col-12 col-md-auto developer">
-                        <p>Created by <a target="_blank" href="https://upix.technology/">UPIX Technologies</a></p>
+                        <p>Created by <a class="ms-1" target="_blank" href="https://upix.technology/">UPIX Technologies</a></p>
                     </div>
                 </div>
             </div>
@@ -104,6 +104,8 @@
     <script src="plugins/jquery/jquery-3.2.0.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/twentytwenty/jquery.event.move.js"></script>
+    <script src="plugins/twentytwenty/jquery.twentytwenty.js"></script>
     <script src="js/my.js?t=<?php echo date('U'); ?>"></script>
     </div>
 

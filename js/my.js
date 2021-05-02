@@ -57,7 +57,7 @@ $(document).ready(function () {
         $('.collapse-content').each(function () {
             var block = $(this),
                 collapse = block.find('.collapse');
-            
+
             collapse.each(function () {
                 var it = $(this),
                     id = it.attr('id'),
@@ -68,14 +68,59 @@ $(document).ready(function () {
         });
     }
 
-});
+    $('.send').click(function () {
+        var it = $(this);
 
-$(window).on('load resize', function () {
-    //appendBlocks('.header .h-bottom .menu', 0, 1199, '.mobile-menu');
+        var form = $(this).closest('form');
+
+        it.prop('disabled', true);
+        it.addClass('disabled');
+
+        if (form[0].checkValidity()) {
+            console.log('success');
+
+            form.removeClass('was-validated');
+            form.submit();
+        } else {
+            form.addClass('was-validated');
+
+            it.prop('disabled', false);
+            it.removeClass('disabled');
+        }
+    });
+
 });
 
 $(window).on('load', function () {
-    //menuFixed('.header .h-bottom', 0);
+    $(".twentytwenty-container").twentytwenty({
+        default_offset_pct: 0.5, // How much of the before image is visible when the page loads
+        orientation: 'horizontal', // Orientation of the before and after images ('horizontal' or 'vertical')
+        before_label: 'До', // Set a custom before label
+        after_label: 'После', // Set a custom after label
+        no_overlay: true, //Do not show the overlay with before and after
+        move_slider_on_hover: false, // Move slider on mouse hover?
+        move_with_handle_only: true, // Allow a user to swipe anywhere on the image to control slider movement. 
+        click_to_move: false // Allow a user to click (or tap) anywhere on the image to move the slider to that location.
+    });
+});
+
+$('#effects').on('slid.bs.carousel', function (e) {
+
+    var slide = $(this).find('.carousel-item');
+
+    console.log(slide);
+
+    slide.eq(e.to).find('.twentytwenty-container').twentytwenty({
+        default_offset_pct: 0.5, // How much of the before image is visible when the page loads
+        orientation: 'horizontal', // Orientation of the before and after images ('horizontal' or 'vertical')
+        before_label: 'До', // Set a custom before label
+        after_label: 'После', // Set a custom after label
+        no_overlay: true, //Do not show the overlay with before and after
+        move_slider_on_hover: false, // Move slider on mouse hover?
+        move_with_handle_only: true, // Allow a user to swipe anywhere on the image to control slider movement. 
+        click_to_move: false // Allow a user to click (or tap) anywhere on the image to move the slider to that location.
+    });
+
 });
 
 function appendBlocks(block, windowMin, windowMax, appendTo) {
@@ -94,71 +139,84 @@ function appendBlocks(block, windowMin, windowMax, appendTo) {
     }
 }
 
-function menuFixed(menu, offseting) {
-
-    var height = $(menu).outerHeight(),
-        offsetParametr = offseting,
-        offsetTop = $(menu).offset().top + offsetParametr,
-
-        wrapper = 'wrapper-' + $(menu).attr('class');
-
-    $(menu).wrap('<div class="' + wrapper + '"></div>');
-    $('.' + wrapper).css({
-        minHeight: height
-    });
-
-    $(window).scroll(function () {
-        if ($(window).scrollTop() >= offsetTop) {
-            $(menu).addClass('active');
-        } else {
-            $(menu).removeClass('active');
-        }
-    });
-
-}
-
 $(window).on('load', function () {
-    
+
     setWidth('.cart-products-result', '.cp-price');
     setWidth('.data-blocks', '.inputblock p:not(.for-select)');
     setWidth('.product-inner-top', '.pi-row .tit');
-    
+
+    setHeight('#effects', '.s-inner');
+
     if ($(window).width() < 992) {
-        
-        $('.cart-row .col-auto').each(function(index){
-            setWidth('.cart-block', '.cc-'+index);
+
+        $('.cart-row .col-auto').each(function (index) {
+            setWidth('.cart-block', '.cc-' + index);
         });
-        
+
         var mainWidth = 0;
-        $('.cart-head .col-auto').each(function(index){
-            mainWidth += $('.cart-head .cc-'+(index+1)).parent().outerWidth();
-            
-            $(this).parents('.cart-block').css({width: mainWidth});
-            
+        $('.cart-head .col-auto').each(function (index) {
+            mainWidth += $('.cart-head .cc-' + (index + 1)).parent().outerWidth();
+
+            $(this).parents('.cart-block').css({
+                width: mainWidth
+            });
+
             console.log(mainWidth);
         });
     }
+
+    if ($('#products-slider').length && $(window).width() < 576) {
+        $('#products-slider .prod-outer').addClass('carousel-item');
+    }
+
 });
 
-function setWidth (parent, block) {
+function setWidth(parent, block) {
 
-    $(parent).each(function(){
-        
+    $(parent).each(function () {
+
         var width = 0,
             blockk = $(this).find(block);
-        
-        blockk.each(function(){
-            
+
+        blockk.each(function () {
+
             var blockWidth = $(this).outerWidth();
-            
-           if(width < blockWidth) {
+
+            if (width < blockWidth) {
                 width = blockWidth;
-            } 
-            
+            }
+
         });
-        
-        blockk.css({width: width});
-        
-        
+
+        blockk.css({
+            width: width
+        });
+
+
+    });
+}
+
+function setHeight(parent, block) {
+
+    $(parent).each(function () {
+
+        var height = 0,
+            blockk = $(this).find(block);
+
+        blockk.each(function () {
+
+            var blockHeight = $(this).outerHeight();
+
+            if (height < blockHeight) {
+                height = blockHeight;
+            }
+
+        });
+
+        blockk.css({
+            height: height
+        });
+
+
     });
 }
